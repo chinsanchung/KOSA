@@ -1,0 +1,28 @@
+
+public class Sungjuk02 {
+
+	public static void main(String[] args) {
+	//성적 객체 만들기
+		Sungjuk obj = new Sungjuk();
+	//만약 다르게 할시 인수 5개짜리 생성자를 직접 Sungjuk에다 만들어야한다...앞의 생성자가 필드초기화	
+	//객체 생성 후 앞 파일의 Sungjuk() {}가 호출..stirng은 null, 숫자는 0
+	  
+	Sungjuk obj2 = new Sungjuk("A002", "jj", 88, 77, 99);	
+	  
+	//이후 호출시..input 필요 없음
+	obj2.process();
+	
+	//호출하기--앞의 Sungjuk파일의 input, process 실행
+		obj.input();
+		obj.process();
+		
+		System.out.println("\n\t\t      *** 성적표 ***");
+		System.out.println("===========================================================");
+		System.out.println("학번    이름    국어    영어    수학    총점    평균    등급");
+		System.out.println("===========================================================");
+		obj.output();
+		obj2.output();
+		System.out.println("===========================================================");
+	}
+
+}
