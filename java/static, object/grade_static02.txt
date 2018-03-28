@@ -1,0 +1,36 @@
+
+public class Sungjuk02 {
+	static int MAX = 100;
+	public static void main(String[] args) {
+	//성적 객체 그 자체가 100개 만든게 아니라 성적 객체 주소를 보관할 레퍼런스 타입 배열이 100개
+		Sungjuk obj[] = new Sungjuk[MAX];
+		int i;
+
+	//진짜 성적객체 obj[i] = new Sungjuk();	
+		for (i = 0; i < MAX; i++) {
+			obj[i] = new Sungjuk();
+			//break로 for문 빠져나옴..입력 끝이남
+			if (obj[i].input())
+				break;
+			
+			obj[i].process();
+			System.out.println();
+		}
+	//학번에서 exit 입력 끝내기 위해 앞의 파일로 이동
+
+		
+		System.out.println("\n\t\t      *** 성적표 ***");
+		System.out.println("===========================================================");
+		System.out.println("학번    이름    국어    영어    수학    총점    평균    등급");
+		System.out.println("===========================================================");
+		//for문으로 입력한 것만큼 나오게함
+		for (i = 0; i < Sungjuk.cnt; i++) {
+			obj[i].output();
+		}
+		System.out.println("===========================================================");
+		//정적
+		System.out.printf("\t\t\t 총 학생수 = %d, 전체 평균 = %5.2f", Sungjuk.cnt, Sungjuk.getTotal());
+
+	}
+
+}
