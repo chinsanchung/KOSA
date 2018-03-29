@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<!-- id는 ResultMap을 쓰기 위해서 만든 객체..
+	result property -->
+<mapper namespace="com.spring.mybatis.MemberMapper">
+<!--클래스 MemberVO에 존재하는 필드이름이 column. 속성(필드)이 property. property에 저장됨 -->
+	<resultMap type="MemberVO" id="MemberResultMap">
+		<result property="id" column="ID" />
+		<result property="name" column="NAME" />
+		<result property="email" column="EMAIL" />
+		<result property="phone" column="PHONE" />
+	</resultMap>
+	
+	<!-- ID는 Mapper.java(여기서는 MemberMapper.java)에 동일하게 사용해야한다. 읽어올때 -->
+	<select id="getMembers" resultMap="MemberResultMap">
+		SELECT * FROM tab_mybatis order by name
+	</select>
+<!-- 참고..어떤 테이블에도 같은 문장을 수행하기 위해 미리 찍어놓음. 복붙하면 된다
+	<select id="getMembers" parameterType="String" resultMap="MemberResultMap">
+		SELECT * FROM ${value} order by name
+	</select>
+-->
+<!-- id로 조회해서 하나만 추출하는데 사용. 하나만 전달할 필요만 있어서 MemberVO getMember 이렇게 쓴다
+	#이 파라미터...#{~} -->
+	<select id="getMember" resultMap="MemberResultMap">
+		SELECT * FROM tab_mybatis WHERE id=#{id, javaType=String}
+	</select>
+	
+	<!-- parameterType에는 구문에 전달될 파라미터의 패키지 경로를 포함한 전체 클래스명이나 별칭이 들어간다 
+	자바에서의 String이 아니라 오라클에서처럼 VARCHAR라고 씀. 필드 이름이 파라미터로 사용된다-->
+	<insert id="insertMember" parameterType="com.spring.mybatis.MemberVO">
+		INSERT INTO tab_mybatis VALUES
+			(#{id, javaType=String},#{name, jdbcType=VARCHAR},#{email},#{phone})
+	</insert>
+	<!-- 파라미터를 해시맵으로 전달(데이터 저장) 괄호안의 메소드 호출할 때 해시맵으로 전달받으면 된다고함.
+		 필요한 값만 저장하기 위해서 사용..모든 데이터를 입력시 컬럼 이름 생략해도 된다 -->
+	<insert id="insertMember2" parameterType="hashmap" >
+		INSERT INTO tab_mybatis VALUES
+			(#{id, javaType=String},#{name, jdbcType=VARCHAR},#{email},#{phone})
+	</insert>
+	<!-- 
+	<insert id="insertMember" parameterType="com.spring.mybatis.MemberVO">
+		INSERT INTO ${value} VALUES
+			(#{id, javaType=String},#{name, jdbcType=VARCHAR},#{email},#{phone})
+	</insert>
+	 -->
+	 <!-- id를 가지고 이름, 임 -->
+	 <update id="updateMember" parameterType="com.spring.mybatis.MemberVO">
+	 	UPDATE tab_mybatis SET name=#{name}, email=#{email},
+	 		phone=#{phone} WHERE id=#{id}
+	 </update>
+	 <!--  파라미터 안 써도 사용 가능 그럴시 파라미터 타입은 String-->
+	 <delete id="deleteMember">
+	 	DELETE FROM tab_mybatis WHERE id=#{id}
+	 </delete>
+	 <!-- 게시판에서 글 출력할 때 총 글의 개수도 알아야 해서 쓴다. -->
+	 <select id="getCount" resultType="int">
+	 	SELECT COUNT(*) FROM tab_mybatis
+	 </select>
+</mapper>
