@@ -1,0 +1,26 @@
+<!DOCTYPE html PUBLIC "-//W3C/DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html http-equiv-"content-type"= "http://www.w3.org/1999/xhtml" xml:lang= "ko" lang= "ko">
+<head>
+<meta http-equiv= "content-type" content= "text/html; charset=UTF-8" />
+<title>Insert title here</title>
+<script type= "text/javascript">
+function setBG() {
+	window.parent.frames[1].document.bgColor = document.form1.bgC.value;
+}
+</script>
+</head>
+<body>
+<form name= "form1">
+frame객체 예제<br />
+색상 선택시 아래 프레임배경색이 선택된 색상으로 변경됨<br /><br />
+배경색<select name= "bgC" onchange= "setBG();">
+		<option value= "">배경색 선택해라</option>
+		<option value= "red">RED</option>
+		<option value= "blue">BLUE</option>
+		<option value= "yellow">YELLOW</option>
+	</select>
+</form>
+
+</body>
+</html>

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<script type= "text/javascript"
+
+src= "https://maps.googleapis.com/maps/api/js?sensor=false&key=AIzaSyBxW3oywrWMJG17dDXg00a0vefDUeIiZv4">
+</script>
+
+<script>
+function getLocation() {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(showPosition, showError);
+  } else {
+    alert("Geolocation is not supported by this browser.");
+  }
+}
+//위도 경도 정보들을 Geocoder()가 가지고 있다
+function showPosition(position) {
+  var geocoder= new google.maps.Geocoder();
+  var latlng= new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+  var opt= {
+    zoom: 15,
+    center: latlng,
+    mapTypeControl: true,
+    navigationControlOptions: {style: google.maps.NavigationControlStyle.SMALL},
+    mapTypeId: google.maps.MapTypeId.ROADMAP
+  };
+
+//getElementById로 아이디 찾는다. div객체가 mapView가 됨
+  var mapView= document.getElementById("mapView");
+  mapView.style.width= "800px";
+  mapView.style.height= "600px";
+//map객체 만들기. 맵뷰위치에 맵을 표시하고 옵션대로 만든다.
+  var map= new google.maps.Map(mapView, opt);
+//빨간색 마커 만들기. 이미지는 기본이미지
+  var marker;
+//geocoder의 주소, 위치 정보들을 results에 저장.
+  geocoder.geocode({'latLng' : latlng}, function(results, status) {
+    if (status == google.maps.GeocoderStatus.OK) {
+    if (results[0]) {
+      marker= new google.maps.Marker({
+      position: latlng,
+      map: map
+      });
+  //말풍선 안에 들어갈 내용..formatted_address를 google.co.kr링크로 연결
+      var content= "<a href= 'http://www.google.co.kr/' target= '_blank'>"
+                    + results[0].formatted_address + "</a>";
+  //마커 클릭 시의 이벤트
+      var infowindow= new google.maps.InfoWindow({ content: content});
+
+      google.maps.event.addListener(marker, "click", function() {
+        infowindow.open(map, marker);
+      });
+  //infowindow.setContent(results[0].formatted_address);
+  //infowindow.open(map, marker);
+
+    } else {
+      alert('Geocoder failed due to: ' + status);
+    } //else
+  } else {
+      alert('Geocoder failed due to: ' + status);
+  }
+}); //geocoder.geocode
+} //function
+//error객체를 showError에 전달
+function showError(error) {
+  var x= document.getElementById("err");
+//HTML형식으로 <div id>여기에 표시</div>..
+  switch(error.code) {
+    case error.PERMISSION_DENIED:
+      x.innerHTML= "User denied the request for Geolocation."
+      break;
+    case error.POSITION_UNAVAILABLE:
+      x.innerHTML= "Location information is unavailable."
+      break;
+    case error.TIMEOUT:
+      x.innerHTML= "The request to get user location timed out."
+      break;
+    case error.UNKNOWN_ERROR:
+      x.innerHTML= "An unknown error occurred"
+      break;
+  }
+}
+</script>
+</head>
+<body>
+Click the button to get your position <button onclick="getLocation()">Click</button>
+<div id="mapView"></div>
+<div id="err"></div>
+</body>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset= "UTF-8">
+<title>Insert title here</title>
+<script type= "text/javascript">
+function check(form) {
+	var prt= "";
+	for(var i = 0; i < form.hobby.length; i++) {
+	if(form.hobby[i].checked == true) {
+		prt= prt + form.hobby[i].value + "\n";
+		}
+	}
+alert(prt);
+}
+</script>
+</head>
+<body>
+<form name= "form1">
+checkbox객체<br />
+관심분야<br /><br />
+<!-- check(this)하면 그 줄에 해당하도록 함 17줄 하나 이러케 -->
+스포츠 <input type="checkbox" name="hobby" value="스포츠" /> &nbsp;&nbsp;
+음악<input type="checkbox" name="hobby" value="음악" /> &nbsp;&nbsp;
+독서<input type="checkbox" name="hobby" value="독서" /> &nbsp;&nbsp;
+게임<input type="checkbox" name="hobby" value="게임" /> &nbsp;&nbsp;
+여행<input type="checkbox" name="hobby" value="여행" /> &nbsp;&nbsp;
+<input type= "button" value= "확인" onclick= "check(this.form);" />
+</form>
+</body>
+</html>

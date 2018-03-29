@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<!-- 아디(6~10자 숫자,알파벳), 비번, 주민번호, 성별, 메일(주소선택창),
+취미(등산, 독서, 스키, 음악, 영화 체크박스), 자기소개..끝나고 창 뜨게 -->
+<script type= "text/javascript">
+function idcheck(){
+	var idc;
+	idc= document.form1.ID.value;
+	if (idc.length =< 4) {
+		alert("4글자 이상");
+		document.form1.ID.focus()
+	}
+}
+
+function pwcheck(){
+	var pwc;
+	pwc= document.form1.PASSWORD.value;
+	if (pwc.length =< 4) {
+		alert("4글자 이상");
+		document.form1.PASSWORD.focus()
+	}
+}
+
+function result(form) {
+	if (document.form1.jumin1.value == "") {
+		var ju1 = document.form1.jumin1.value;
+		var ju2 = document.form1.jumin2.value;
+		if (ju1.length != 6) {
+			alert("주민번호 앞자리 확인 ");
+			document.form1.jumin1.focus();
+			return false;
+		} else if (ju2.length != 7) {
+			alert("주민번호 뒷자리 확인 ");
+			document.form1.jumin2.focus();
+			return false;
+		} else {
+			jumin = ju1 + ju2;
+			var w = 2, hap = 0, chk;
+			for (i = 0; i < jumin.length; i++) {
+				ch = jumin.substring(i, i+1); 
+				if(!(ch >= "0" && ch <= "9")) {
+					alert("특수문자 포함");
+					document.form1.jumin1.focus();
+					return false
+				} else {
+					if (i == (jumin.length-1))
+						continue;
+					hap += parseInt(ch) * w;
+					w++;
+					if (w == 10)
+						w = 2;
+					}
+			}
+		chk = 11 - (hap % 11);
+		if (chk == 10)
+			chk = 0;
+		else if (chk == 11)
+			chk = 1	
+		if (chk != parseInt(jumin.substring(jumin.length-1, jumin.length))) 
+			alert("주민번호 오류 다시 입력해라")
+			document.input_form.jumin1.focus();
+			return false;
+			
+		}// 아래else
+	} // 위else
+	input_val	
+} //result()
+
+function cancel() {
+	document.write(form1);
+}
+</script>
+</head>
+<body>
+<form name= "form1">
+<table border= "1">
+<tr>
+	<td width = "100">아이디</td>
+	<td><input type= "text" name= "ID" maxlength = "10" />(최소6~최대10, 숫자와 알파벳만 가능)</td>
+</tr>
+<tr>
+	<td width = "50">비밀번호</td>
+	<td><input type= "password" name = "PASSWORD" maxlength = "10"/>(최소6~최대10, 숫자와 알파벳만 가능)</td>
+</tr>
+<tr>
+	<td width = "100">주민번호</td>
+	<td><input type= "jumin1" maxlength= "6" size = "10"> -
+		<input type= "jumin2" maxlength= "7" size = "10">
+	</td>
+</tr>
+<tr>
+	<td width = "100">성별</td>
+	<td>남자<input type= "radio" name= "gender" value= "남자" />
+		여자<input type= "radio" name= "gender" value= "여자" />
+	</td>
+</tr>
+<tr>
+	<td width = "50">이메일</td>
+	<td><input type= "text" name= "email" /> @
+		<select name= "email1">
+		<option value= ""></option>
+		<option value= "gmail.com">gmail.com</option>
+		<option value= "hotmail.co.kr">hotmail.co.kr</option>
+		<option value= "naver.com">naver.com</option>
+		<option value= "hanmail.net">hanmail.net</option>
+		</select></td>
+</tr>
+<tr>
+	<td width = "100">취미</td>
+	<td>
+	등산<input type="checkbox" name="hobby" value="등산" />&nbsp;
+	독서<input type="checkbox" name="hobby" value="독서" />&nbsp;
+	스키<input type="checkbox" name="hobby" value="스키" />&nbsp;
+	음악<input type="checkbox" name="hobby" value="음악" />&nbsp;
+	영화<input type="checkbox" name="hobby" value="영화" />&nbsp;
+	</td>
+</tr>
+<tr>
+	<td width = "100">자기소개</td>
+	<td>
+	<textarea rows= "10" cols= "70"></textarea>
+	</td>
+</tr>
+<tr>
+	<td width = "100" colspan= "2" align= "center">
+	<input type= "button" value= "입력" name= "input" onclick= "result(this.form)" />
+	<input type= "button" value= "취소" name= "cancel" onclick= "cancel(this.form)" />
+	</td>
+	
+</tr>
+</table>
+</form>
+</body>
+</html>

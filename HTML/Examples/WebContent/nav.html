@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+
+function check_input() {
+	
+	var str, i, ch, input_val = "";
+	
+	if (document.input_form.id.value == "") {
+		alert("아이디를 입력하세요!");
+		document.input_form.id.focus();
+		return false;
+	} else {
+		str = document.input_form.id.value;
+		if (str.length < 6 || str.length > 10) {
+			alert("아이디 길이 확인!");
+			document.input_form.id.focus();
+			return false;
+		} else {
+			for (i = 0; i < str.length; i++) {
+				ch = str.substring(i, i + 1);
+				if (!((ch >= "0" && ch <= "9") || (ch >= "a" && ch <= "z") || (ch >= "A" && ch <= "Z"))) {
+					alert("특수 문자 포함 다시입력");
+					document.input_form.id.focus();
+					return false;
+				}
+			}
+		}
+	} // 아이디 체크
+	
+	input_val += "아이디: " + str + "\n";
+	
+	if (document.input_form.pw.value == "") {
+		alert("비밀번호 입력!");
+		return false;
+	} else {
+		str = document.input_form.pw.value;
+		if (str.length < 6 || str.length > 10) {
+			alert("패스워드 길이 확인");
+			document.input_form.pw.focus();
+			return false;
+		} else {
+			for (i = 0; i < str.length; i++) {
+				ch = str.substring(i, i + 1);
+				if (!((ch >= "0" && ch <= "9") || (ch >= "a" && ch <= "z") || (ch >= "A" && ch <= "Z"))) {
+					alert("특수 문자 포함 다시입력");
+					document.input_form.id.focus();
+					return false;
+				}
+			}
+		}	
+	}// 패스워드 체크
+	
+	input_val += "비밀번호: " + str + "\n";
+	
+	if (document.input_form.jumin1.value == "") {
+		alert("주민번호 앞자리");
+		document.input_form.jumin1.focus();
+		return false;
+	} else if (document.input_form.jumin2.value =="") {
+		alert("뒷자리 ");
+		document.input_form.jumin2.focus();
+		return false;
+	} else {
+		var str1 = document.input_form.jumin1.value;
+		var str2 = document.input_form.jumin2.value;
+		
+		if (str1.length != 6) {
+			alert("주민번호 확인");
+			document.input_form.jumin1.focus();
+			return false;
+		} else if (str2.length != 7) {
+			alert("주민번호 확인");
+			document.input_form.jumin2.focus();
+			return false;
+		} else {
+			str = str1 + str2;
+			var w = 2, hap = 0, chk;
+			for (i = 0; i < str.length; i++) {
+				ch = str.substring(i, i + 1);
+				if (!(ch >= "0" && ch <= "9")) {
+					alert("특수문자 포함 다시입력");
+					document.input_form.jumin1.focus();
+					return false;
+				} else {
+					if (i == (str.length-1))
+						continue;
+					hap += parseInt(ch) * w;
+					w++;
+					if (w == 10)
+						w = 2;
+				}
+			}
+			chk = 11 - (hap % 11);
+			if (chk == 10) 
+				chk = 0;
+			else if (chk == 11) 
+				chk = 1;
+			
+			if (chk != parseInt(str.substring(str.length - 1, str.length))) {
+				alert("주민번호 오류");
+				document.input_form.jumin1.focus();
+				return false;
+			}
+		}
+	} // 주민번호 체크
+	
+	input_val += "주민번호: " + str1 + "-" + str2 + "\n";
+	
+	if (!(document.input_form.gender[0].checked == true 
+		|| document.input_form.gender[1].checked == true)) {
+		alert("성별을 선택하세요");
+		return false;
+	} // 성별체크 
+	
+	input_val += "성별: " + document.input_form.gender.value + "\n";
+	
+	if (document.input_form.email1.value == "") {
+		alert("이메일 앞 확인");
+		document.input_form.email1.focus();
+		return false;
+	} // 이메일 앞부분 체크
+	
+	if (document.input_form.email2.value == "") {
+		alert("이메일 뒤 확인");
+		document.input_form.email2.focus();
+		return false;
+	} // 이메일 뒷부분 체크
+	
+	input_val += "이메일: " +  document.input_form.email1.value + "@" + document.input_form.email2.value + "\n";
+	
+	if (!(document.input_form.hobby[0].checked == true || document.input_form.hobby[1].checked == true
+			|| document.input_form.hobby[2].checked == true || document.input_form.hobby[3].checked == true 
+			|| document.input_form.hobby[4].checked == true)) {
+			alert("취미를 선택하세요");
+			return false;
+	} // 취미체크
+	
+	var hobby = "";
+	
+	for (i = 0; i < document.input_form.hobby.length; i++) {
+		if (document.input_form.hobby[i].checked == true) {
+			hobby += document.input_form.hobby[i].value + " ";
+		}
+	}
+	
+	input_val += "취미: " + hobby + "\n";
+	
+	if (document.input_form.intro.value == "") {
+		alert("자기소개를 입력하세요");
+		document.input_form.intro.focus();
+		return false;
+	} // 자기소개 체크
+	
+	input_val += "자기소개: " + document.input_form.intro.value + "\n";
+	
+	alert(input_val);
+	
+	return false; // 서버로 전송 , true로 쓰면 input_form.jsp로 ~
+}
+
+</script>
+</head>
+<body>
+<form name="input_form" action="input_form.jsp" method="post" onsubmit="return check_input();"> <!-- 밑에 submit 누르면 onsubmit으로 이동 -->
+	<table align="center" border="1" width="550">
+		<tr>
+			<td width="100">아이디</td>
+			<td width="450">
+				<input type="text" name="id" size="15">(최소6 최대10 숫자, 알파벳)
+			</td>
+		</tr>
+		
+		<tr>
+			<td width="100">비밀번호</td>
+			<td width="450">
+				<input type="password" name="pw" size="15">(최소6 최대10 숫자, 알파벳)
+			</td>
+		</tr>
+		
+		<tr>
+			<td width="100">주민번호</td>
+			<td width="450">
+				<input type="text" name="jumin1" size="6" maxlength="6">-
+				<input type="text" name="jumin2" size="7" maxlength="7">
+			</td>
+		</tr>
+		
+		<tr>
+			<td width="100">성별</td>
+			<td width="450">
+				<input type="radio" name="gender" value="남자">남자
+				<input type="radio" name="gender" value="여자">여자
+			</td>
+		</tr>
+		
+		<tr>
+			<td width="100">이메일</td>
+			<td width="450">
+				<input type="text" name="email1" size="10">@
+				<select name="email2">
+					<option value=""> 메일주소 선택 </option>
+					<option value="hanmail.net"> hanmail.net </option>
+					<option value="naver.com"> naver.com </option>
+					<option value="nate.com"> nate.com </option>
+				</select>
+			</td>
+		</tr>
+		
+		<tr>
+			<td width="100">취미</td>
+			<td width="450">
+				<input type="checkbox" name="hobby" value="등산">등산
+				<input type="checkbox" name="hobby" value="독서">독서
+				<input type="checkbox" name="hobby" value="스키">스키
+				<input type="checkbox" name="hobby" value="음악">음악
+				<input type="checkbox" name="hobby" value="영화">영화
+			</td>
+		</tr>
+		
+		<tr>
+			<td width="100"> 자기소개 </td>
+			<td width="450">
+				<textarea name="intro" rows="5" cols="50"></textarea>
+			</td>
+		</tr>
+		
+		<tr>
+			<td colspan="2" align="center" width="550">
+				<input type="submit" name="submit" value="입력">
+				<input type="reset" name="reset" value="취소">
+			</td>
+		</tr>
+	</table>
+</form>
+</body>
+</html>

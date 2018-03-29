@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset= "UTF-8">
+<title>Insert title here</title>
+<script type= "text/javascript">
+function namePRT() {
+	var e0, e1, e2;
+	e0= document.form1.elements[0].name;
+	e1= document.form1.elements[1].name;
+	e2= document.form1.elements[2].name;
+	
+	var val0, val1, val2
+	val0= document.form1.elements[0].value;
+	val1= document.form1.elements[1].value;
+	val2= document.form1.elements[2].value;
+	
+	document.write("<table border= '3'>");
+	document.write("<tr>");
+	document.write("<td>" + e0 + "</td>");
+	document.write("<td>" + val0 + "</td>");
+	document.write("</tr>");
+	document.write("<tr>");
+	document.write("<td>" + e1 + "</td>");
+	document.write("<td>" + val1 + "</td>");
+	document.write("</tr>");
+	document.write("<tr>");
+	document.write("<td>" + e2 + "</td>");
+	document.write("<td>" + val2 + "</td>");
+	document.write("</tr>");	
+	document.write("</table>");
+}
+</script>
+</head>
+<body>
+<form name= "form1">
+form객체<br />
+각 양식의 이름 출력<br /><br />
+Email: <input type= "text" name= "email" /><br /><br />
+ID: <input type= "text" name= "id" /><br /><br />
+Password: <input type= "password" name= "pw" /><br />
+<input type= "button" value= "이름확인" onclick= "namePRT();" />
+</form>
+
+</body>
+</html>
