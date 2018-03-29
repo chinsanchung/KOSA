@@ -1,0 +1,48 @@
+body {
+	width : 960px;
+	margin : 15px auto; <!--마진은 여백-->
+	font-family : "맑은 고딕", "나눔고딕", Arial, "MS Trebuchet", sans-serif;
+}
+p {
+	margin : 0 0 20px 0; <!--탑 레프트 업 바텀-->
+}
+p, li {
+	line-height : 20px; <!--줄간격 20-->
+}
+header#page_header{
+	width : 100%;
+}
+<!-- page_header의 nav와 ul, 아래의 page_footer의 nav, ul -->
+header#page_header nav ul, #page_footer nav ul{
+	list-style : none;
+	margin : 0;
+	padding : 0;
+}
+#page_header nav ul, footer#page_footer nav ul li{
+	padding : 0;
+	margin : o 20px 0 0;
+	display : inline;  <!-- block으로 하면 위의 창이 세로순으로 정렬, inline으로 하면 가로순으로 일렬정리 -->
+}
+section#posts{
+	float : left;
+	width : 74%;
+}
+section#posts aside{
+	float : right;
+	width : 35%;
+	margin-left : 5%;
+	font-size : 20px;
+	line-height : 40px;
+}
+<!-- 26줄의 post 74%와 사이드바 25%로 페이지 구성 -->
+section#sidebar{
+	float : left;
+	width : 25%;
+}
+<!-- 서로 안겹치게 clear both, width 100%로 공간 다 쓰게함 -->
+footer#page_footer{
+	clear : both;
+	width : 100%;
+	display : block;
+	text-align : center;
+}
