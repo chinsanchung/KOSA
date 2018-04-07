@@ -73,3 +73,5 @@
 	* 반응형 웹 디자인으로 모바일 화면에서도 사용 가능
 	
 	* 이용자의 편의성을 높이기 위해 비동기화 방식으로 페이지 구성
+
+* 프레젠테이션 파일 (https://github.com/chinsanchung/Korea-Software-Industry-Association/issues/1)
