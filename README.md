@@ -57,7 +57,7 @@
 * 사용언어 : Java, SQL, HTML5, JavaScript, JSP, CSS 3.0
   
 * 프레임워크: Spring Framework 3.1.1, JQuery 3.2.1, BootStrap 3.3.2, MVC Framework, MyBatis
-* github 페이지 : https://github.com/chinsanchung/MADI
+* github 페이지 : https://github.com/kimseongbin/MADI
 * 소개 : 재료를 데이터베이스에 저장해 요리 레시피를 검색해주는 서비스
   
 * 기능
